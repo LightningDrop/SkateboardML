@@ -1,0 +1,2 @@
+# SkateboardML
+Classifying skateboarding tricks
