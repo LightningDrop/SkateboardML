@@ -15,5 +15,11 @@ Classifying skateboarding tricks
 23 JUNE TODO:
 - (Maybe) start processing videos into homogeneous form: 30 frames / second at a specific length and resolution.
 - Finish gathering video training data
-- Email Justin
+- ~Email Justin~
 - Reading about background for video machine learning 
+
+
+## Background reading
+
+- [Google paper](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/42455.pdf) describing training on large video dataset.
+    We need to figure out how to do more with less- using only 100 or so videos of each class.
