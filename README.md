@@ -11,3 +11,9 @@ Classifying skateboarding tricks
     We should start by picking just two tricks- ollie and kickflip?
 - (Maybe) start processing videos into homogeneous form: 30 frames / second at a specific length and resolution.
 - Start reading up on background for video machine learning- is 100 clips of training data enough?
+
+23 JUNE TODO:
+- (Maybe) start processing videos into homogeneous form: 30 frames / second at a specific length and resolution.
+- Finish gathering video training data
+- Email Justin
+- Reading about background for video machine learning 
