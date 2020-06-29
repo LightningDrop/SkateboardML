@@ -25,7 +25,7 @@ Our goal is to come up with a reasonable classifier of tricks for 1-2 second vid
 We plan to use whatever the most convenient and capable approaches to make that successful.
 
 Our plan for preprocessing the data is to sample the videos down to a consistent number of frames and resolution.
-For example, each video can consist of 30 frames, each of which is a 480 x 360 (360p) image, so that every video becomes a tensor with dimension 480 x 360 x 30.
+For example, each video can consist of 30 frames, each of which is a 480 x 360 (360p) image, so that every video becomes a 3d array (or tensor) with dimension 480 x 360 x 30.
 These are the inputs to the model.
 Color is not important for trick classification, so we can also transform to black and white.
 
@@ -49,3 +49,5 @@ Hopefully we can build on these ideas.
     Explains how a convolutional filter works, and how to design the network, in practical and explicit terms.
 - [Google paper](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/42455.pdf) describing training on large video dataset.
     We need to figure out how to do more with less- using only 100 or so videos of each class.
+- [3D Convolutional Neural Networks for Human Action Recognition](https://icml.cc/Conferences/2010/papers/100.pdf)
+    I wonder how state of the art this is.
