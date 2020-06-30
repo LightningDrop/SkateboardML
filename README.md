@@ -14,10 +14,14 @@ Classifying skateboarding tricks
 
 23 JUNE TODO:
 - (Maybe) start processing videos into homogeneous form: 30 frames / second at a specific length and resolution.
-- Finish gathering video training data
+- ~Finish gathering video training data~
 - ~Email Justin~
 - Reading about background for video machine learning 
 
+30 JUNE TODO:
+- Summarize UCF101 approach
+- Try to run UCF101 code
+- FUN: make a project introduction video
 
 ## General approach
 
