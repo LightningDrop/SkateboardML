@@ -23,6 +23,18 @@ Classifying skateboarding tricks
 - ~Try to run UCF101 code~
 - FUN: make a project introduction video
 
+7 July:
+
+- Adapt UCF101 code to our data, and train LSTM
+
+15 July:
+
+- Written summary describing exactly what our code does and what our results are. Google "Literate programming"
+- Run some individual videos through the trained model and interpret the results. For example, P(kickflip) = 0.8
+- Check if running fewer training epochs will improve validation accuracy.
+- Construct CNN and compare performance to LSTM. (this will take longer)
+
+
 ## General approach
 
 Our goal is to come up with a reasonable classifier of tricks for 1-2 second video clips.
