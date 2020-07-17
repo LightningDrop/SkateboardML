@@ -55,9 +55,6 @@ end
 function build_model(args; imgsize = (28,28,1), nclasses = 10)
     cnn_output_size = Int.(floor.([imgsize[1]/8,imgsize[2]/8,32]))	
 
-    # CF: Chain for function composition
-    # How to get in here and see what's going on?
-    #
     return Chain(
     # First convolution, operating upon a 28x28 image
     Conv((3, 3), imgsize[3]=>16, pad=(1,1), relu),
@@ -72,12 +69,7 @@ function build_model(args; imgsize = (28,28,1), nclasses = 10)
     MaxPool((2,2)),
 
     # Reshape 3d tensor into a 2d one using `Flux.flatten`, at this point it should be (3, 3, 32, N)
-    #
-    # CF: This is fully flattening the tensor, which isn't what we want.
-    # Rather, we want to drop one dimension.
-    Iterators.flatten,
-    collect,
-
+    flatten,
     Dense(prod(cnn_output_size), 10))
 end
 
