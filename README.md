@@ -29,10 +29,15 @@ Classifying skateboarding tricks
 
 15 July:
 
-- Written summary describing exactly what our code does and what our results are. Google "Literate programming"
+- ~Written summary describing exactly what our code does and what our results are. Google "Literate programming"~
 - Run some individual videos through the trained model and interpret the results. For example, P(kickflip) = 0.8
 - Check if running fewer training epochs will improve validation accuracy.
 - Construct CNN and compare performance to LSTM. (this will take longer)
+
+21 July:
+- Randomize test train split and check accuracy
+- Think about how you want to present this work
+- Find out why some of the videos are misclassified
 
 
 ## General approach

@@ -6,12 +6,10 @@ Created on Sun Jul  5 10:50:46 2020
 """
 
 
-import sys;
 import tensorflow as tf;
 import os;
 import cv2;
 import numpy as np;
-import matplotlib.pyplot as plt;
 import tqdm;
 from sklearn.preprocessing import LabelBinarizer;
 
@@ -23,13 +21,11 @@ def frame_generator():
     video_paths = tf.io.gfile.glob(VIDEOS_PATH)
     np.random.shuffle(video_paths)
     for video_path in video_paths:
-        frames = []
         cap = cv2.VideoCapture(video_path)
         num_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
         sample_every_frame = max(1, num_frames // SEQUENCE_LENGTH)
         current_frame = 0
 
-        label = os.path.basename(os.path.dirname(video_path))
 
         max_images = SEQUENCE_LENGTH
         while True:
@@ -85,7 +81,7 @@ for img, batch_paths in tqdm.tqdm(dataset):
         current_path = path
         all_features.append(features)
         
-LABELS = ['Ollie','Kickflip'] 
+LABELS = ['Ollie','Kickflip','Shuvit'] 
 encoder = LabelBinarizer()
 encoder.fit(LABELS)
 
@@ -101,13 +97,10 @@ model.compile(loss='categorical_crossentropy',
               optimizer='rmsprop',
               metrics=['accuracy', 'top_k_categorical_accuracy'])
 
-test_file = os.path.join('data', 'testlist01.txt')
-train_file = os.path.join('data', 'trainlist01.txt')
-
-with open('testlist01.txt') as f:
+with open('testlist02.txt') as f:
     test_list = [row.strip() for row in list(f)]
 
-with open('trainlist01.txt') as f:
+with open('trainlist02.txt') as f:
     train_list = [row.strip() for row in list(f)]
     train_list = [row.split(' ')[0] for row in train_list]
 
@@ -116,7 +109,7 @@ def make_generator(file_list):
     def generator():
         np.random.shuffle(file_list)
         for path in file_list:
-            full_path = os.path.join(BASE_PATH, path).replace('.avi', '.npy')
+            full_path = os.path.join(BASE_PATH, path).replace('.mov', '.npy')
 
             label = os.path.basename(os.path.dirname(path))
             features = np.load(full_path)
