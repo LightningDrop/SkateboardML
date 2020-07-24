@@ -46,8 +46,6 @@ def frame_generator():
                 break
             current_frame += 1
 
-# `from_generator` might throw a warning, expected to disappear in upcoming versions:
-# https://www.tensorflow.org/versions/r2.0/api_docs/python/tf/data/Dataset#for_example_2
 dataset = tf.data.Dataset.from_generator(frame_generator,
              output_types=(tf.float32, tf.string),
              output_shapes=((299, 299, 3), ()))
@@ -58,8 +56,6 @@ inception_v3 = tf.keras.applications.InceptionV3(include_top=False, weights='ima
 
 x = inception_v3.output
 
-# We add Average Pooling to transform the feature map from
-# 8 * 8 * 2048 to 1 x 2048, as we don't need spatial information
 pooling_output = tf.keras.layers.GlobalAveragePooling2D()(x)
 
 feature_extraction_model = tf.keras.Model(inception_v3.input, pooling_output)
@@ -109,7 +105,7 @@ def make_generator(file_list):
     def generator():
         np.random.shuffle(file_list)
         for path in file_list:
-            full_path = os.path.join(BASE_PATH, path).replace('.mov', '.npy')
+            full_path = os.path.join(BASE_PATH + '/', path).replace('.mov', '.npy')
 
             label = os.path.basename(os.path.dirname(path))
             features = np.load(full_path)

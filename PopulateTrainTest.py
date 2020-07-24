@@ -16,14 +16,16 @@ for root, dirs, files in os.walk("Tricks", topdown=True):
         if name.endswith(".mov"):
             if(filelist == None):
                 filelist=list()
-            filelist.append(os.path.join(root,name).replace("\\",'/'))
+            path = os.path.join(root,name).replace("\\",'/')
+            path = path.strip("Tricks/")
+            filelist.append(path)
     
 random.shuffle(filelist)
-
+    
 trainlist = len(filelist)*0.80
 trainlist = int(trainlist)
 
-with open("trainlist02.txt") as f:  
+with open("trainlist02.txt","w") as f:
     for i in range(0,trainlist):
         f.write(filelist[i]+"\n")
         
