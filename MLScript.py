@@ -6,12 +6,12 @@ Created on Sun Jul  5 10:50:46 2020
 """
 
 
-import tensorflow as tf;
-import os;
-import cv2;
-import numpy as np;
-import tqdm;
-from sklearn.preprocessing import LabelBinarizer;
+import tensorflow as tf
+import os
+import cv2
+import numpy as np
+import tqdm
+from sklearn.preprocessing import LabelBinarizer
 
 BASE_PATH = 'D:/SkateboardML/Tricks'
 VIDEOS_PATH = os.path.join(BASE_PATH, '**','*.mov')
@@ -90,7 +90,7 @@ model = tf.keras.Sequential([
 ])
 
 model.compile(loss='categorical_crossentropy',
-              optimizer='rmsprop',
+              optimizer='RMSProp',
               metrics=['accuracy', 'top_k_categorical_accuracy'])
 
 with open('testlist02.txt') as f:

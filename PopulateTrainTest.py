@@ -31,5 +31,4 @@ with open("trainlist02.txt","w") as f:
         
 with open("testlist02.txt","w") as f:
     for j in range(trainlist+1, len(filelist)):
-        f.write(filelist[j]+"\n")
-        
+        f.write(filelist[j]+"\n")       
