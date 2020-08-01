@@ -24,7 +24,6 @@ Classifying skateboarding tricks
 - FUN: make a project introduction video
 
 7 July:
-
 - ~Adapt UCF101 code to our data, and train LSTM~
 
 15 July:
