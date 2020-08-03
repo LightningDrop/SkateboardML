@@ -90,7 +90,7 @@ model = tf.keras.Sequential([
 ])
 
 model.compile(loss='categorical_crossentropy',
-              optimizer='RMSProp',
+              optimizer='Adam',
               metrics=['accuracy', 'top_k_categorical_accuracy'])
 
 with open('testlist02.txt') as f:

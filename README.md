@@ -1,6 +1,12 @@
 # SkateboardML
 Classifying skateboarding tricks
 
+## What this project does at a high level
+This project in the the simplest words classifies skateboard tricks. We are trying to use machine learning 
+to classify each skateboarding trick. There are a lot of skateboarding tricks we chose two to classify inbetween.
+We chose between Ollie and Kickflip.
+
+ ![Markdown Monster](https://raw.githubusercontent.com/LightningDrop/SkateboardML/master/images/ezgif.com-video-to-gif.gif)
 
 16 June TODO:
 
@@ -41,7 +47,7 @@ Classifying skateboarding tricks
 28 July:
 - Write high level goals and do a 30 second video
 - Package and release this dataset on an open repository (Clark)
-- Try using kickflip down stairs to see if the trick classifies
+- ~Try using kickflip down stairs to see if the trick classifies~
 
 
 ## General approach
