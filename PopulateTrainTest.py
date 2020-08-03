@@ -7,31 +7,28 @@ Created on Tue Jul  7 14:15:34 2020
 
 #import module statements
 import os
+import random
 
-#start of loop
-with open("trainlist02.txt", "w") as file:
+filelist = list()
    
-    for root, dirs, files in os.walk("Tricks", topdown=True):
-        for name in files:
-            file.write(os.path.join(root,name).replace("\\","/") + '\n')
+for root, dirs, files in os.walk("Tricks", topdown=True):
+    for name in files:
+        if name.endswith(".mov"):
+            if(filelist == None):
+                filelist=list()
+            path = os.path.join(root,name).replace("\\",'/')
+            path = path.strip("Tricks/")
+            filelist.append(path)
+    
+random.shuffle(filelist)
+    
+trainlist = len(filelist)*0.80
+trainlist = int(trainlist)
 
-temp = "None"    
-with open("trainlist02.txt", "r+") as f:
-    read_data = f.read()
-    f.seek(0)
-    f.truncate(0)
-    read_data = read_data.replace("Tricks/", "")
-    temp = read_data
-    f.write(read_data)
-
-with open("testlist02.txt", "w") as f:
-    f.write(temp)
-    
-    
-    
-    
-            
+with open("trainlist02.txt","w") as f:
+    for i in range(0,trainlist):
+        f.write(filelist[i]+"\n")
         
-
-        
-
+with open("testlist02.txt","w") as f:
+    for j in range(trainlist+1, len(filelist)):
+        f.write(filelist[j]+"\n")       
