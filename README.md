@@ -77,7 +77,10 @@ So that algorithm would take an input like above and spit out a probability of h
 - ~Try using kickflip down stairs to see if the trick classifies~
 
 4 August:
-- Rewrite read me with a little bit more detail 3 to 5 paragraphs
+- Rewrite add more trick classifier
+- Push notes of video credit
+- Improved video!
+- 180 or variation trick through classifier
 
 ## General approach
 
