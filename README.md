@@ -1,14 +1,39 @@
-# SkateboardML
+# Machine Learning Skateboarding Tricks
+
+Skateboarders can easily recognize tricks performed by other skateboarders.
+Our goal in this project is to teach the computer to recognize skateboarding tricks.
+Given a video of a skateboard trick, can the computer classify the trick with high probability?
+We developed a dataset and a machine learning model that can distinguish between two of the most common skateboarding tricks, ollies and kickflips.
+
+We started by gathering over 200 short (1 to 2 second) videos of kickflips and ollies.
+We adapted the approach described in [Hands on Computer Vision with Tensorflow](https://github.com/PacktPublishing/Hands-On-Computer-Vision-with-TensorFlow-2/blob/master/Chapter08/ch8_nb1_action_recognition.ipynb) to our new data set.
+The data starts as a video, then passes through a convolutional neural network (CNN), then through a long short term memory (LSTM) model, and finally to an output of probabilities that the video depicts each class of tricks.
+
+For example, here Stephen performs a kickflip:
+
+ ![Markdown Monster](https://raw.githubusercontent.com/LightningDrop/SkateboardML/master/images/GoodFlip.gif)
+
+The model predicts this is a kickflip with probability 0.9, so it works well.
+We found that clear videos where the skateboarder's full body is in view did better than videos of only the skateboarder's legs.
+We also found that the model was able to correctly predict a kickflip down a stair set, even though all the training data was of tricks on flat ground.
+This shows that the model was able to generalize to a new and different situation.
+
+To take this work further, we can add more tricks beyond kickflips and ollies, as well as combinations of tricks, for example, a backside 180 kickflip.
+With more training data and more model tweaking this model could get good enough to rival a human skateboarder.
+
+
+## Details
+
 Classifying skateboarding tricks
 
-## What this project does at a high level
 This project in the the simplest words classifies skateboard tricks. We are trying to use machine learning 
 to classify each skateboarding trick. There are a lot of skateboarding tricks we chose two to classify inbetween.
 We chose between Ollie and Kickflip.
 
- ![Markdown Monster](https://raw.githubusercontent.com/LightningDrop/SkateboardML/master/images/GoodFlip.gif)
  
 So that algorithm would take an input like above and spit out a probability of how sure it is that it is a ollie or a kickflip.
+
+
 
 16 June TODO:
 
