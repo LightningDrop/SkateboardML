@@ -10,8 +10,6 @@ We chose between Ollie and Kickflip.
  
 So that algorithm would take an input like above and spit out a probability of how sure it is that it is a ollie or a kickflip.
 
-![example](https://www.youtube.com/watch?v=tGwcGPulg7Q)
-
 16 June TODO:
 
 - ~Gather video training data of tricks by searching for Creative Commons license in YouTube.~
