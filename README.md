@@ -76,11 +76,17 @@ So that algorithm would take an input like above and spit out a probability of h
 - Package and release this dataset on an open repository (Clark)
 - ~Try using kickflip down stairs to see if the trick classifies~
 
+<<<<<<< HEAD
 4 August:
 - Rewrite add more trick classifier
 - Push notes of video credit
 - Improved video!
 - 180 or variation trick through classifier
+=======
+testing merge
+more stuff
+
+>>>>>>> fb0294cd145dfae21dd94bc127117606829da9f6
 
 ## General approach
 
