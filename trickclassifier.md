@@ -153,21 +153,21 @@ After we run all the code above there is a lot that we can do and show after com
     
 Which would yield a thing like this scatter plot that looks like below for kickflips
 
-![kickflip graph](kickflipplot.png)
+![kickflip graph](https://raw.githubusercontent.com/LightningDrop/SkateboardML/master/images/kickflipplot.png)
 
 and for ollies the same code but moving the y value over one would yield this graph for ollies
 
-![Ollie graph](ollieplot.png)
+![Ollie graph](https://raw.githubusercontent.com/LightningDrop/SkateboardML/master/images/ollieplot.png)
 
 If we look at the data points we can see that the data is really sporadic. If we count the ollie plot only 13 plot points are above 0.8 probability so let's find out why the model is so certain on these points and so uncertain on other points.
 
 If we just look at the kickflip plot points we can see how clear the video is that is being observed. A good example of low quality data leading to low outcomes is something like this:
 
-![](ezgif.com-video-to-gif.gif)
+![Bad Kickflip](https://raw.githubusercontent.com/LightningDrop/SkateboardML/master/images/ezgif.com-video-to-gif.gif)
 
 This gif had a 65% probability of being a kickflip. If we look at the video we can sort of see why this video just shows the skateboarders feet and the camera is actually out of focus but, if we look at a better example like this one which has a way higher probability of classifying as a kickflip:
 
-![](ezgif.com-video-to-gif%20(1).gif)
+![Good Kickflip](https://raw.githubusercontent.com/LightningDrop/SkateboardML/master/images/GoodFlip.gif)
 
 this gif is more clear you see the whole view of the skater and you see the board clearly so the probability of it placing higher is way better in theory. Although if you improve the data more and more the better the outcome will be.
 
