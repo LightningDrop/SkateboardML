@@ -13,7 +13,7 @@ VIDEOS_PATH = os.path.join(BASE_PATH, '**','*.mov')
 SEQUENCE_LENGTH = 40
 ```
     
-To start with this program you need to import the following modules from python. You will use tensorflow to build the model with its keras wrapper class. You will use the os module to find some of the video paths. You use cv2 to read in the images for processing. You will finally use tqdm to make a count the number of iterations the loop makes it through. We will also use LabelBinarizer to let us select which trick it is.
+To start with this program we import the following modules from python. We will use `tensorflow`'s `keras` to build the model. We will use the `os` module to find some of the video paths. We use `cv2` to read in the images for processing. Finally, we will use `tqdm` to count the number of iterations the loop makes it through. We will also use `LabelBinarizer` to encode the trick.
 
 ```python
 def frame_generator():
@@ -51,8 +51,14 @@ dataset = tf.data.Dataset.from_generator(frame_generator,
 
 dataset = dataset.batch(16).prefetch(tf.data.experimental.AUTOTUNE)
 ```
-    
-Starting from the dataset variable we call the tf.data.Dataset.from_generator function to generate the frames that are to be featured by the CNN. If we exam the frame_generator function, when we first arrive in the function we first start by assigning the VIDEOS_PATH variable to a different variable using tf.io.gfile.glob() function then shuffle that list so that we are always choosing a different video to feature extract from. This is basically just preparing the data by converting it from bgr to rgb because opencv reads in bgr. Then we resize the image to (299,299,3) because we are going to input the images into a pretrained model that accepts images of that size. Then we preprocess the image weights so that they are changed into the range of (-1,1) to fit into the pretrained model.we do this as a max of 40 times per image. If there is a video of 160 frames it'll read every 4th frame. Then we prepare the data in the dataset variables with expected output size and the string it is supposed to come with.
+Starting from the `dataset` variable, we call the `tf.data.Dataset.from_generator` function to generate the frames which are the input to the CNN.
+If we examine the `frame_generator` function, we start by listing all the training videos in random order.
+Next, we convert the data from bgr to rgb because `opencv` reads in bgr.
+We resize the image to (299,299,3) because we are going to input the images into a model that accepts images of that size.
+We preprocess the image weights so that they are changed into the range of (-1,1) to fit into the model.
+Each video gets converted to at most `SEQUENCE_LENGTH = 40` frames.
+For example, If there is a video of 160 frames this generator will yield every 4th frame.
+Then we prepare the data in the dataset variables with expected output size and the string (TODO: it is supposed to come with | denoting the trick).
 
 ```python
 inception_v3 = tf.keras.applications.InceptionV3(include_top=False, weights='imagenet')
@@ -66,7 +72,11 @@ pooling_output = tf.keras.layers.GlobalAveragePooling2D()(x)
 feature_extraction_model = tf.keras.Model(inception_v3.input, pooling_output)
 ```
 
-Then we setup the feature extraction model. In the first line we call the pretrained model object from tensorflow. We then get the output size and assign it to an arbitrary value to be flattened because we do not need spatial information. So we flatten the array using the Global average pooling function. We then finish setting up the models input and expected output in the final line.
+Next, we setup the feature extraction model.
+In the first line we call the pretrained model object from tensorflow.
+We then get the output size and assign it to an arbitrary value to be flattened because we do not need spatial information.
+So we flatten the array using the Global average pooling function.
+We then finish setting up the models input and expected output in the final line.
 
 ```python
 current_path = None
@@ -86,7 +96,8 @@ for img, batch_paths in tqdm.tqdm(dataset):
         all_features.append(features)
 ```
 
-Then we run this loop. What this loop does is that it iterates through all the generated frames and paths and so this loop extract key features from these list of paths of 40 and images then it stores each images features are stored in a 1x2048 array there are 40 images per video so your basically left with a 40x2048 npy file.
+Next, we iterate through all the generated frames and paths, extracting key features from the paths and images, and then storing the extracted features from each image in a 1x2048 array.
+There are 40 images per video, which leaves us with a 40x2048 numpy array.
 
 ```python
 LABELS = ['Ollie','Kickflip'] 
@@ -102,7 +113,26 @@ model = tf.keras.Sequential([
 ])
 ```
 
-We create our labels so that the Neural net can choose between the 2 tricks. Then we create a new variable called encoder so that we can binarize the 2 options we have and we then use the fit function to fit the encoder to the tricks or classes we want to be classified. We then move on to defining our model. The model that we define basically takes our input and gives us our output. We are building our model with the mind that we have one input and one output so we use the Sequential object in keras to reflect that. We then define the layers of our sequential model. Each layer does something different for our model. The Masking layer ignores padding so that it makes the learning process more efficient because all elements of our array will not always be filled with unique values. The next layer we define is our LSTM layer which is a derivative of a Recurrent Neural Network. A RNN is… The arguments that you can provide are numerous but the ones that we use for our LSTM application are the units, the dropout, and the recurrent dropout. We set the units of neurons to 512. I choose this number because it is smaller than 2048 which is the length of the array. If we increased the number of neurons then we would make the network more powerful but then we would also increase train time to some degree. The dropout argument we use is probabilistically excluded from activation and weight updates while training a network. This has the effect of reducing overfitting and improving model performance. Recurrent dropout masks (or "drops") the connections between the recurrent units. We then go on to define our dense layer. The dense layer defines how many neurons we have for our application so we have 256 neurons available. We also provide an activation argument with it. We then move on to our own independent Dropout layer which we just use as to not overfit the data. We then move on to our last dense layer Which is just set to the length of our labels variable so 2 because we have 2 different options for probabilistic output.
+We create our labels so that the Neural net can choose between the 2 tricks.
+(TODO: I thought we had to add another trick so this would work?)
+Then we create a new variable called `encoder` that maps back and forth between the text class labels that humans understand and the numeric encoding that the model understands.
+We then move on to defining our model.
+
+The model takes input and produces output, as with any machine learning model.
+Each layer does something different for our model.
+The `Masking` layer ignores padding so that it makes the learning process more efficient because all elements of our array will not always be filled with unique values.
+The next layer we define is our LSTM layer which is a derivative of a Recurrent Neural Network (RNN).
+An RNN can be complex, but the ones that we use for our LSTM application are the units, the dropout, and the recurrent dropout.
+We set the units of neurons to 512 because it is smaller than 2048 which is the length of the array.
+If we increased the number of neurons, then we would make the network more powerful, but would also increase training time.
+The dropout argument we use is probabilistically excluded from activation and weight updates while training a network.
+This has the effect of reducing overfitting and improving model performance.
+Recurrent dropout masks (or "drops") the connections between the recurrent units.
+We then go on to define our dense layer.
+The dense layer defines how many neurons we have for our application so we have 256 neurons available.
+We also provide an activation argument with it.
+We then move on to our own independent Dropout layer which we just use as to not overfit the data.
+Finally, we use a dense layer that outputs the probability that each input belongs to one of the originally specified classes.
 
 ```python
 model.compile(loss='binary_crossentropy',
@@ -110,8 +140,13 @@ model.compile(loss='binary_crossentropy',
               metrics=['accuracy', 'top_k_categorical_accuracy'])
 ```
 
-We then go on to use the compile function. The compile function is used to configure your model with losses and other metrics. The loss function calculates a score that summarizes the average difference between the actual and predicted probability distributions for all classes in the problem. We choose this loss function specifically because we are doing multiclass classification. Then we set our optimizer which is basically our learning rate. Our learning rate will determine how long it takes our machine learning algorithm to converge in accuracy between the test dataset and the training set. Then finally we have our metrics which just gives us how often the prediction matches its label and how often the predictions are in the top k of categories.
-    
+We then compile our model, configuring the loss function, optimizer, and other metrics.
+The loss function calculates a score that summarizes the average difference between the actual and predicted probability distributions for all classes in the problem.
+We choose this loss function specifically because we are doing multiclass classification.
+~~Then we set our optimizer which is basically our learning rate.~~
+~~Our learning rate will determine how long it takes our machine learning algorithm to converge in accuracy between the test dataset and the training set.~~
+Finally, we have our metrics which tell us how often the prediction matches its label and how often the predictions are in the top k of categories.
+ 
 
 ```python
 with open('testlist02.txt') as f:
@@ -153,18 +188,26 @@ valid_dataset = tf.data.Dataset.from_generator(make_generator(test_list),
 valid_dataset = valid_dataset.batch(16).prefetch(tf.data.experimental.AUTOTUNE)
 ```
 
-In these lines of code we have seemingly a lot going on. We have a generator inside a function. We also have two variables being declared and assigned however, this is basically just like the same code above except slightly different. In this instance we are just padding the 40,2048 array with zeros where needed it also transforms the label. From then on everything else is the same from the feature extraction phase.
+In these lines of code we have a lot going on.
+We have a generator defined inside a function.
+We also have two variables being declared and assigned, however, this is basically just like the same code above except slightly different.
+In this instance we are just padding the 40,2048 array with zeros where needed, as well as transforming the label.
+From then on everything else is the same as the feature extraction phase.
 
 ```python
 tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir='log', update_freq=1000)
 model.fit(train_dataset, epochs=17, callbacks=[tensorboard_callback], validation_data=valid_dataset)
 ```
     
-TensorBoard is a tool for providing the measurements and visualizations needed during the machine learning workflow. It enables tracking experiment metrics like loss and accuracy, visualizing the model graph, projecting embeddings to a lower dimensional space, and much more. Then we are just left with the last model fit function. Which just starts the training phase.
+TensorBoard is a tool for providing the measurements and visualizations needed during the machine learning workflow.
+It enables tracking experiment metrics like loss and accuracy, visualizing the model graph, projecting embeddings to a lower dimensional space, and much more.
+We are just left with the last model fit function, which trains the model.
 
 # Interpreting the data
 
-After we run all the code above there is a lot that we can do and show after compiling all the data we can use model.predict(valid_dataset) to get a view of the predicted outcomes of the test_list. When run we are met with a 2d numpy array with all of our predicted values which can be stored to be then plotted. For example we can store the model.predict(valid_dataset) outcome in some variable then import matplotlib.pyplot as plt. With plt we can plot the predictions. An example would be:
+After we run all the code above we can examine our model.
+We can use `model.predict(valid_dataset)` to get a view of the predicted outcomes of the `test_list`, which is a 2d numpy array containing all of our predicted values.
+We can plot the predictions.
 
 ```python
 import matplotlib.pyplot as plt
@@ -175,25 +218,32 @@ x = np.arange(len(Kickflip))
 plt.scatter(x, Kickflip)
 ```
 
-Which would yield a thing like this scatter plot that looks like below for kickflips
+Now we can plot the predicted probabilities that each trick is a kickflip:
 
 ![kickflip graph](https://raw.githubusercontent.com/LightningDrop/SkateboardML/master/images/kickflipplot.png)
 
-and for ollies the same code but moving the y value over one would yield this graph for ollies
+The predicted probabilities that each trick is an ollie, is just 1 minus the probability that the trick is a kickflip.
 
 ![Ollie graph](https://raw.githubusercontent.com/LightningDrop/SkateboardML/master/images/ollieplot.png)
 
-If we look at the data points we can see that the data is really sporadic. If we count the ollie plot only 13 plot points are above 0.8 probability so let's find out why the model is so certain on these points and so uncertain on other points.
+If we look at the data points we can see that the data is not cleanly separated between ollie and kickflip.
+Examining the ollie plot, only 13 plot points are above 0.8 probability, so let's find out why the model is so certain on these points and so uncertain on other points.
 
-If we just look at the kickflip plot points we can see how clear the video is that is being observed. A good example of low quality data leading to low outcomes is something like this:
+The clarity of the video and location of the skateboarder in the frame seem to influence how certain the model is of a prediction.
+The model had trouble saying with certainty that this trick was a kickflip:
 
 ![Bad Kickflip](https://raw.githubusercontent.com/LightningDrop/SkateboardML/master/images/ezgif.com-video-to-gif.gif)
 
-This gif had a 65% probability of being a kickflip. If we look at the video we can sort of see why this video just shows the skateboarders feet and the camera is actually out of focus but, if we look at a better example like this one which has a way higher probability of classifying as a kickflip:
+This gif had a 65% probability of being a kickflip. 
+If we look at the video we can see why.
+This video just shows the skateboarders feet and the camera is actually out of focus.
+In contrast, if we look at a better example like this one which has a way higher probability of classifying as a kickflip:
 
 ![Good Kickflip](https://raw.githubusercontent.com/LightningDrop/SkateboardML/master/images/GoodFlip.gif)
 
-this gif is more clear you see the whole view of the skater and you see the board clearly so the probability of it placing higher is way better in theory. Although if you improve the data more and more the better the outcome will be.
+This gif is more clear.
+You see the whole view of the skater, and you see the board clearly, which allows the model to perform better.
+The more data we get, and the more time we spend training the model, the more accurate we can expect our predictions to be.
 
 
 # Sources
