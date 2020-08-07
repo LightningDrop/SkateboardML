@@ -1,15 +1,17 @@
 ﻿# Skateboarding Trick Classifier
 
-    import tensorflow as tf;
-    import os;
-    import cv2;
-    import numpy as np;
-    import tqdm;
-    from sklearn.preprocessing import LabelBinarizer;
+```python
+import tensorflow as tf;
+import os;
+import cv2;
+import numpy as np;
+import tqdm;
+from sklearn.preprocessing import LabelBinarizer;
 
-    BASE_PATH = 'D:/SkateboardML/Tricks'
-    VIDEOS_PATH = os.path.join(BASE_PATH, '**','*.mov')
-    SEQUENCE_LENGTH = 40
+BASE_PATH = 'D:/SkateboardML/Tricks'
+VIDEOS_PATH = os.path.join(BASE_PATH, '**','*.mov')
+SEQUENCE_LENGTH = 40
+```
     
 To start with this program you need to import the following modules from python. You will use tensorflow to build the model with its keras wrapper class. You will use the os module to find some of the video paths. You use cv2 to read in the images for processing. You will finally use tqdm to make a count the number of iterations the loop makes it through. We will also use LabelBinarizer to let us select which trick it is.
 
