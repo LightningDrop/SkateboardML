@@ -72,13 +72,13 @@ So that algorithm would take an input like above and spit out a probability of h
 - Find out why some of the videos are misclassified
 
 28 July:
-- Write high level goals and do a 30 second video
+- ~Write high level goals and do a 30 second video~
 - Package and release this dataset on an open repository (Clark)
 - ~Try using kickflip down stairs to see if the trick classifies~
 
 4 August:
-- Rewrite add more trick classifier
-- Push notes of video credit
+- ~Rewrite add more trick classifier~
+- ~Push notes of video credit~
 - Improved video!
 - 180 or variation trick through classifier
 

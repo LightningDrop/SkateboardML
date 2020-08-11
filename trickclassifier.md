@@ -100,7 +100,7 @@ Next, we iterate through all the generated frames and paths, extracting key feat
 There are 40 images per video, which leaves us with a 40x2048 numpy array.
 
 ```python
-LABELS = ['Ollie','Kickflip'] 
+LABELS = ['Ollie','Kickflip','Shuvit'] 
 encoder = LabelBinarizer()
 encoder.fit(LABELS)
 
@@ -113,9 +113,7 @@ model = tf.keras.Sequential([
 ])
 ```
 
-We create our labels so that the Neural net can choose between the 2 tricks.
-(TODO: I thought we had to add another trick so this would work?)
-Then we create a new variable called `encoder` that maps back and forth between the text class labels that humans understand and the numeric encoding that the model understands.
+We create our labels so that the Neural net can choose between the 3 tricks. Then we create a new variable called `encoder` that maps back and forth between the text class labels that humans understand and the numeric encoding that the model understands.
 We then move on to defining our model.
 
 The model takes input and produces output, as with any machine learning model.
@@ -244,7 +242,6 @@ In contrast, if we look at a better example like this one which has a way higher
 This gif is more clear.
 You see the whole view of the skater, and you see the board clearly, which allows the model to perform better.
 The more data we get, and the more time we spend training the model, the more accurate we can expect our predictions to be.
-
 
 # Sources
 
