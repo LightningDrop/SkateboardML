@@ -58,7 +58,7 @@ We resize the image to (299,299,3) because we are going to input the images into
 We preprocess the image weights so that they are changed into the range of (-1,1) to fit into the model.
 Each video gets converted to at most `SEQUENCE_LENGTH = 40` frames.
 For example, If there is a video of 160 frames this generator will yield every 4th frame.
-Then we prepare the data in the dataset variables with expected output size and the string (TODO: it is supposed to come with | denoting the trick).
+Then we prepare the data in the dataset variables with expected output size and a string naming the trick.
 
 ```python
 inception_v3 = tf.keras.applications.InceptionV3(include_top=False, weights='imagenet')
