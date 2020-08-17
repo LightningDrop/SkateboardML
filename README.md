@@ -23,6 +23,7 @@ This shows that the model was able to generalize to a new and different situatio
 To take this work further, we can add more tricks beyond kickflips and ollies, as well as combinations of tricks, for example, a backside 180 kickflip.
 With more training data and more model tweaking this model could get good enough to rival a human skateboarder.
 
+Thanks to [Justin Wang](https://www.linkedin.com/in/justinwang5/) and [Vessela Ensberg](https://www.library.ucdavis.edu/author/vessela-ensberg/) for their help on this project.
 
 ## Using Our Data
 
