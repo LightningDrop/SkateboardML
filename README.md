@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3986905.svg)](https://doi.org/10.5281/zenodo.3986905)
+
 # Machine Learning Skateboarding Tricks
 
 Skateboarders can easily recognize tricks performed by other skateboarders.
@@ -20,6 +22,16 @@ This shows that the model was able to generalize to a new and different situatio
 
 To take this work further, we can add more tricks beyond kickflips and ollies, as well as combinations of tricks, for example, a backside 180 kickflip.
 With more training data and more model tweaking this model could get good enough to rival a human skateboarder.
+
+
+## Using Our Data
+
+The labelled video data is in the [`Tricks` directory](https://github.com/LightningDrop/SkateboardML/tree/master/Tricks) of this repository.
+There are two subdirectories, `Ollie`, which contains 108 videos of skateboarders performing an ollie, and `Kickflip`, which contains 114 videos of skateboarders performing a kickflip.
+Each of the files in these directories is a short clip, about 2 seconds, in `.mov` format (QuickTime).
+To use this data for supervised machine learning, train the model on the data in the `Tricks` directory, using the subdirectories as the labels.
+
+You're free to use this data for academic purposes, provided you [cite this work](https://zenodo.org/record/3986905#.XzrIsxNKhBw).
 
 
 ## Details
